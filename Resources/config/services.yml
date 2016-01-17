@@ -1,0 +1,18 @@
+services:
+    vesax.admin_extra.chain_role_provider:
+        class: Vesax\AdminExtraBundle\RoleProvider\ChainRoleProvider
+
+    vesax.admin_extra.sonata_role_provider:
+        class: Vesax\AdminExtraBundle\RoleProvider\SonataRoleProvider
+        arguments:
+            - @sonata.admin.pool
+            - @sonata.admin.security.handler.role
+        tags:
+            - { name: vesax.admin_extra.role_provider }
+
+    vesax.admin_extra.form.role_type:
+        class: Vesax\AdminExtraBundle\Form\Type\RoleType
+        arguments:
+            - @vesax.admin_extra.chain_role_provider
+        tags:
+            - { name: form.type, alias: vesax_admin_extra_roles }

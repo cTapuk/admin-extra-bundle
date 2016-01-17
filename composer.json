@@ -1,0 +1,12 @@
+{
+    "name": "vesax/admin-extra-bundle",
+    "require": {
+        "sonata-project/admin-bundle": "^2.3"
+    },
+    "authors": [
+        {
+            "name": "Artur Vesker",
+            "email": "arturvesker@gmail.com"
+        }
+    ]
+}
