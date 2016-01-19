@@ -1,0 +1,12 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% block tags_widget -%}
+    {{- block('form_widget_simple') -}}
+    <script type="text/javascript">
+        $(function(){
+            $('#{{ form.vars.id }}').select2({
+                tags: [{% for tag in tags %}'{{ tag.name }}'{% if not loop.last %},{% endif %}{% endfor %}]
+            });
+        });
+    </script>
+{%- endblock tags_widget %}

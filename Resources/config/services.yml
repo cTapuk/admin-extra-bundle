@@ -16,3 +16,10 @@ services:
             - @vesax.admin_extra.chain_role_provider
         tags:
             - { name: form.type, alias: vesax_admin_extra_roles }
+
+    vesax.admin_extra.form.tags:
+        class: Vesax\AdminExtraBundle\Form\Type\TagsType
+        arguments:
+            - %sonata.classification.manager.context.entity%
+        tags:
+            - { name: form.type, alias: tags }
