@@ -24,6 +24,15 @@ class SonataRoleProvider implements RoleProviderInterface
     protected $securityHandler;
 
     /**
+     * @var array
+     */
+    protected $defaultRoles = [
+        'ROLE_SONATA_ADMIN' => 'Admin',
+        'ROLE_SUPER_ADMIN' => 'Super Admin',
+        'ROLE_ALLOWED_TO_SWITCH' => 'Allowed to Switch'
+    ];
+
+    /**
      * @param Pool                $pool
      * @param RoleSecurityHandler $securityHandler
      */
@@ -67,6 +76,6 @@ class SonataRoleProvider implements RoleProviderInterface
             }
         }
 
-        return $roles;
+        return array_merge($roles, $this->defaultRoles);
     }
 }
