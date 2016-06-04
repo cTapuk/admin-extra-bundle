@@ -1,7 +1,7 @@
 {
     "name": "vesax/admin-extra-bundle",
     "require": {
-        "sonata-project/admin-bundle": "^2.3"
+        "sonata-project/admin-bundle": ">=2.3"
     },
     "authors": [
         {
