@@ -1,0 +1,72 @@
+{% extends 'SonataMediaBundle:Form:media_widgets.html.twig' %}
+
+{% block sonata_media_type_widget %}
+
+    {% if form.vars['provider'] in ['sonata.media.provider.image', 'sonata.media.provider.svg'] %}
+        <div id="{{ form.vars.id }}">
+
+            <div class="row">
+                <div class="col-md-4 pull-left">
+                    {% if value is not empty and value.providerReference %}
+                        {% if sonata_admin_enabled is defined and sonata_admin_enabled %}
+                            <a href="{{ sonata_admin.admin.getConfigurationPool().adminByAdminCode('sonata.media.admin.media').generateObjectUrl('edit', value) }}">
+                                <strong>{{ value.name }}</strong>
+                            </a>
+                        {% else %}
+                            <strong>{{ value.name }}</strong>
+                        {% endif %}
+                    {% else %}
+                        <strong>{{ 'no_linked_media'|trans({}, 'SonataMediaBundle') }}</strong>
+                    {% endif %}
+                </div>
+
+                <div class="col-md-2 pull-left"><strong>{{ 'link_media'|trans({}, 'SonataMediaBundle') }}</strong></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 pull-left">
+                    <div class="pull-left sonata_media_preview" style="margin-right: 5px">
+                        {% if value is not empty and value.providerReference %}
+                            {% thumbnail value, 'admin' with {'class': 'img-polaroid media-object'} %}
+                        {% else %}
+                            <img src="{{ asset('bundles/sonatamedia/grey.png') }}" class="img-polaroid media-object" style="width: 200px;"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-2 pull-left">
+                    {% if value is empty or value.providerReference is empty %}
+                        {% do form.unlink.setRendered(true) %}
+                    {% endif %}
+                    {{ block('form_widget') }}
+                </div>
+            </div>
+            <script type="text/javascript">
+                $('#{{ form.vars.id  }} input[type="file"]').change(function(e){
+                    var files = e.target.files; // FileList object
+
+                    // Loop through the FileList and render image files as thumbnails.
+                    for (var i = 0, f; f = files[i]; i++) {
+
+                        // Only process image files.
+                        if (!f.type.match('image.*')) {
+                            continue;
+                        }
+
+                        var reader = new FileReader();
+
+                        // Closure to capture the file information.
+                        reader.onload = (function(file) {
+                            return function(e) {
+                                $('#{{ form.vars.id }} .sonata_media_preview img').attr('src', e.target.result);
+                            };
+                        })(f);
+
+                        // Read in the image file as a data URL.
+                        reader.readAsDataURL(f);
+                    }
+                });
+            </script>
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock sonata_media_type_widget %}
