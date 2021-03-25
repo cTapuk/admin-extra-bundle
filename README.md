@@ -1,3 +1,5 @@
+CLONE OF Vesax/admin-extra-bundle
+
 Admin Extra Bundle
 ==================
 Add custom role provider:
