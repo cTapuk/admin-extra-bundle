@@ -1,5 +1,5 @@
 {
-    "name": "vesax/admin-extra-bundle",
+    "name": "ctapuk/admin-extra-bundle",
     "require": {
         "sonata-project/admin-bundle": ">=2.3"
     },
